@@ -4,6 +4,7 @@ import { EventModule } from './event/event.module';
 import { ParticipantModule } from './participant/participant.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [

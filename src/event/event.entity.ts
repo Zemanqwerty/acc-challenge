@@ -19,7 +19,7 @@ export class Events {
 
   @Column({
     nullable: false,
-    type: 'datetime'
+    type: 'timestamp'
   })
   startTime: Date
 

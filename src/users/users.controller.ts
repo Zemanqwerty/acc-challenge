@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUser } from 'src/dto/users/createUser.dto';
+import { EventPattern } from '@nestjs/microservices';
 
 @Controller('users')
 export class UsersController {
@@ -29,10 +30,20 @@ export class UsersController {
     @Get(':tgid')
     async getUserById(@Param() param: any) {
         try {
-            return await this.usersService.getUserByTgId(param.tgid)
+            return await this.usersService.getUserByTgId(param.tgid);
         } catch (e) {
             console.log(e);
             return(e)
+        }
+    }
+
+    @Delete(':tgid')
+    async deleteUserByTgId(@Param() param: any) {
+        try {
+            return await this.usersService.deleteUserByTgId(param.tgid);
+        } catch (e) {
+            console.log(e);
+            return e
         }
     }
 }

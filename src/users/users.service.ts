@@ -16,6 +16,28 @@ export class UsersService {
         return await this.usersRepository.save(newUser);
     }
 
+    async createUserfromTg(data: any) {
+        console.log(data);
+        const user = await this.usersRepository.findOne({
+            where: {
+                telegram_id: data.telegram_id
+            }
+        })
+        
+        console.log(user);
+
+        if (user) {
+            console.log('user!!!');
+            return 
+        }
+
+        const newUser = this.usersRepository.create({
+            telegram_id: data.telegram_id,
+            telegram_username: data.telegram_username
+        });
+        return await this.usersRepository.save(newUser);
+    }
+
     async getUserById(id: string) {
         return await this.usersRepository.findOne({
             where: {
@@ -33,6 +55,20 @@ export class UsersService {
     }
 
     async getAllUsers() {
+        console.log('get users');
         return await this.usersRepository.find();
+    }
+
+    async deleteUserByTgId(id: string) {
+        console.log(id);
+        const users = await this.usersRepository.find({
+            where: {
+                id: id
+            }
+        })
+        
+        await Promise.all(users.map(async (user) => {
+            await this.usersRepository.delete(user);
+        }));
     }
 }
